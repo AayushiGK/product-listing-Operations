@@ -3,6 +3,11 @@
 Its a MEAN-Stack Project Demo for adding the Product into the selected Category which is Selectable. 
 After adding the Product one can delete, list or edit the Products. 
 
+![image](https://user-images.githubusercontent.com/41955105/124540531-321c0300-de3d-11eb-9e62-4220c9cc665a.png)
+
+![image](https://user-images.githubusercontent.com/41955105/124540566-4829c380-de3d-11eb-80c9-c2c9399ca880.png)
+
+
 
 page for the Product Admin, with components that can be used to perform below
 actions:

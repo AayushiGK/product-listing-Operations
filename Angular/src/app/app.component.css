@@ -1,0 +1,17 @@
+img{
+    filter: invert(1);
+}
+
+.fa{
+    color: white;
+    size: 20px;
+}
+
+.footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.LinkedIn{
+    filter: invert(0);
+}

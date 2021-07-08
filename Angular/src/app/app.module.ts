@@ -10,17 +10,13 @@ import { AppComponent } from './app.component';
 import { searchPipe } from './pipes/search-pipe.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
-import { HomePageComponent } from './home-page/home-page.component';
-import { ProductsComponent } from './products/products.component';
-import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     searchPipe,
-    HomePageComponent,
-    ProductsComponent,
-    ProductDetailComponent
+    UsersComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +26,6 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     NgbModule,
     NgxPaginationModule,
     BrowserAnimationsModule,
-    MaterialModule,
     routing,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -1,0 +1,132 @@
+<div class="container">
+    <div class="row my-3">
+        <div class="col-11">
+            <input type="text" [(ngModel)]="searchText" placeholder="Search By Name" class="form-control border-0">
+        </div>
+        <div class="col-1">
+            <button type="button" class="btn w-100 border-0 bg-company" (click)="openModal(addUserModal, null)">
+                <i class="fa fa-user" title="Add User"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive bg-white box-shadow">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Contact</th>
+                            <th>Status </th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of users | userSearchPipe : searchText | paginate: { itemsPerPage: 10, currentPage: p }">
+                            <td class="align-middle">
+                                <img *ngIf="user?.profileImage" class="rounded-circle"
+                                    src="{{baseURL}}{{user?.profileImage}}" width="40">
+                                <img *ngIf="!user?.profileImage" class="rounded-circle" src="{{baseURL}}unknown.jpg"
+                                    width="40">
+                            </td>
+                            <td class="align-middle text-truncate" routerLink="./{{user.email}}">{{user?.firstName}} {{user?.lastName}}</td>
+                            <td class="align-middle text-truncate">{{user?.email}}</td>
+                            <td class="align-middle text-truncate">{{user?.contact}}</td>
+                            <td class="align-middle">
+                                <i class="fa fa-user ml-3 text-center"
+                                    [ngClass]="{ 'text-success': (user?.isDeleted=='0'),'text-danger': (user?.isDeleted=='1')}"
+                                    placement="bottom"
+                                    [ngbTooltip]="((user?.isDeleted=='0') ? 'active' : 'deleted')"></i>
+                            </td>
+                            <td class="align-middle">
+                                <div class="btn-group" role="group">
+
+                                    <button class="btn btn-secondary btn-sm" (click)="openModal(addUserModal, user)">
+                                        <i class="fa fa-pencil" title="Edit" style="font-size: 12px;"></i>
+                                    </button>
+                                    <button class="btn btn-secondary btn-sm" (click)="deleteUser(user.email)">
+                                        <i class="fa fa-trash" title="Delete" style="font-size: 12px;"></i>
+                                    </button>
+
+                                    <button (click)="fileInput.click()" *ngIf="!isUploading" enctype="multipart/form-data" 
+                                        class="btn btn-secondary btn-sm">
+                                        <i class="fa fa-upload" title="Upload Image"></i>
+                                    </button>
+                                    <input type="file" accept="image/*" name="image"
+                                        (change)="uploadImage($event,user?.email)" class="d-none" #fileInput>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="bg-white text-center">
+            <pagination-controls autoHide="true" (pageChange)="p = $event" maxSize="100"></pagination-controls>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #addUserModal>
+    <div class="modal-body bg-gray">
+        <div class="row">
+            <div class="col-12">
+                <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="px-3">
+                    <div class="form-group row">
+                        <label class="text-gray">First Name</label>
+                        <input formControlName="firstName" class="form-control validation-field" type="text">
+                        <small class="text-danger"
+                            *ngIf="form.controls.firstName.touched && form.controls.firstName.errors?.required">
+                            Required
+                        </small>
+                    </div>
+                    <div class="form-group row">
+                        <label class="text-gray">Last Name</label>
+                        <input formControlName="lastName" class="form-control validation-field" type="text">
+                    </div>
+                    <div class="form-group row">
+                        <label class="text-gray">Contact</label>
+                        <input formControlName="contact" class="form-control validation-field" type="text">
+                        <small class="text-danger"
+                            *ngIf="form.controls.contact.touched && form.controls.contact.errors?.required">
+                            Required
+                        </small>
+                        <small class="text-danger " *ngIf="form.controls.contact.errors?.invalidPhone">
+                            Atleast 10 digits
+                        </small>
+                    </div>
+                    <div class="form-group row">
+                        <label class="text-gray">Email</label>
+                        <input formControlName="email" class="form-control validation-field" type="text"
+                            [readonly]="!isNew">
+                        <small class="text-danger"
+                            *ngIf="form.controls.email.touched && form.controls.email.errors?.required">
+                            Required
+                        </small>
+                        
+                        <small class="text-danger " *ngIf="form.controls.email.errors?.invalidEmail">
+                            Invalid Email Address
+                        </small>
+                    </div>
+
+                    <div class="col-12 bg-white text-center py-1 row">
+                        <button [disabled]="!form.valid" class="btn btn-success mr-1" type="submit">
+                            Add
+                        </button>
+                        <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>

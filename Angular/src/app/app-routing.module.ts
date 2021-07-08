@@ -1,13 +1,11 @@
-import { ProductDetailComponent } from './product-detail/product-detail.component';
-import { ProductsComponent } from './products/products.component';
-import { HomePageComponent } from './home-page/home-page.component';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { UserDetailsComponent } from './users/user-details/user-details.component';
+import { UsersComponent } from './users/users.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomePageComponent },
-  { path: 'home/:products', component: ProductsComponent },
-  { path: 'home/:product/:id', component: ProductDetailComponent },
+  { path: '', redirectTo: 'users', pathMatch: 'full' },
+  { path: 'users', component: UsersComponent },
+  { path: 'users/:email', component: UserDetailsComponent },
 ];
 
 export class AppRoutingModule { }

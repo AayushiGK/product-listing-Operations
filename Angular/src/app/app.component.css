@@ -1,9 +1,5 @@
-img{
-    filter: invert(1);
-}
-
 .fa{
-    color: white;
+    color: #2596be;
     size: 20px;
 }
 
@@ -11,7 +7,4 @@ img{
     position: fixed;
     bottom: 0;
     width: 100%;
-}
-.LinkedIn{
-    filter: invert(0);
 }

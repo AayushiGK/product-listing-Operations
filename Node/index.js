@@ -4,7 +4,4 @@ var arrg = {
     models,
     config
 }
-var { morgan, logger } = require("./logger/index")(arrg);
-arrg.morgan = morgan;
-arrg.logger = logger;
 require('./Controllers/controllers')(arrg);

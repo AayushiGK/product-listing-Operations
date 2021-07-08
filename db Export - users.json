@@ -1,0 +1,44 @@
+[{
+  "_id": {
+    "$oid": "60e563d4d08bec1436b21281"
+  },
+  "email": "aayushicumar@gmail.com",
+  "lastName": "Gupta",
+  "profileImage": "aayushicumar@gmail.com.jpg",
+  "contact": "8630575001",
+  "isDeleted": "0",
+  "firstName": "Aayushi"
+},{
+  "_id": {
+    "$oid": "60e61af22555b54ccc952781"
+  },
+  "firstName": "Suman",
+  "lastName": "Jaiswal",
+  "email": "suman.jaiswal@arkenea.in",
+  "contact": "8900000000",
+  "__v": 0,
+  "isDeleted": "0",
+  "profileImage": "suman.jaiswal@arkenea.in.jpg"
+},{
+  "_id": {
+    "$oid": "60e67e68aaf3466fdbc1d364"
+  },
+  "email": "tony@avenger.in",
+  "__v": 0,
+  "contact": "0987654321",
+  "firstName": "Tony",
+  "isDeleted": "1",
+  "lastName": "Stark",
+  "profileImage": "tony@avenger.in.jpg"
+},{
+  "_id": {
+    "$oid": "60e67ec4aaf3466fdbc1d37f"
+  },
+  "email": "captain.america@avengers.in",
+  "__v": 0,
+  "contact": "8765432190",
+  "firstName": "Steve",
+  "isDeleted": "0",
+  "lastName": "Rogers",
+  "profileImage": null
+}]

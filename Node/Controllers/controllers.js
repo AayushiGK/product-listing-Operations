@@ -10,7 +10,6 @@ module.exports = function (arrg) {
 function startApp(arrg) {
     var express = require("express");
     var cors = require("cors");
-    var bodyParser = require("body-parser");
     var path = require("path");
     var compression = require("compression");
     var methodOverride = require("method-override");
@@ -21,12 +20,12 @@ function startApp(arrg) {
         console.log(`Listening on ${server.address().address}:${server.address().port}`);
     });
 
-    app.use(arrg.config.apiUrlInitial + "/public", express.static(path.join(path.dirname(require.main.filename), 'public')));
+    app.use("/public", express.static(path.join(path.dirname(require.main.filename), 'public')));
     app.use(cors());
     app.use(compression());
-    app.use(bodyParser.json());
-    app.use(bodyParser.raw());
-    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(express.json());
+    app.use(express.raw());
+    app.use(express.urlencoded({ extended: false }));
     app.use(methodOverride());
     app.use(express.static('dist'));
     if (process.env.NODE_ENV != "production") {
@@ -36,18 +35,8 @@ function startApp(arrg) {
         });
     }
 
-    app.use((req, res, next) => {
-        if ([arrg.config.apiUrlInitial].indexOf("/" + req.url.split("/")[1]) >= 0) {
-            if (['api', 'public'].indexOf(req.url.split("/")[2]) >= 0)
-                next();
-            else
-                res.status(403).end();
-        }
-        else
-            next();
-    });
-
-    app.use("/", require("./Products")(arrg));
+    app.use("/", require("./Users")(arrg));
+    app.use("/", require("./Upload")(arrg));
 
     app.get('/*', function (req, res) {
         p = path.join(appRoot.toString(), 'index.html');
@@ -61,7 +50,6 @@ function startApp(arrg) {
         res.locals.message = err.message;
         res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-        arrg.logger.error(`{status: ${err.status || 500} \n ,message:'${err.message}', originalUrl: '${req.originalUrl}',method: '${req.method}', ip: '${req.ip}', errStack: '${err.stack}'`);
         // render the error page
         res.status(err.status || 500);
         res.send('error');
